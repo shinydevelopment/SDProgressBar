@@ -87,7 +87,7 @@
 {
   const CGFloat outlineMinWidth = 1.8;
   const CGFloat outlineMaxWidth = 3.5;
-  const CGFloat outlineWidthFactor = 0.07;
+  const CGFloat outlineWidthFactor = 0.05;
 
   [super layoutSubviews];
 

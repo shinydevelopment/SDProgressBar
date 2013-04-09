@@ -1,5 +1,10 @@
 #import "SDProgressBar.h"
 
+NSString * const SDProgressBarKeyProgress = @"progress";
+NSString * const SDProgressBarKeyBarColor = @"barColor";
+NSString * const SDProgressBarKeyBarOutlineColor = @"outlineColor";
+NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
+
 @interface SDProgressBar ()
 @property (strong, nonatomic) CALayer *barLayer;
 @property (strong, nonatomic) CALayer *indeterminateLayer;
@@ -54,26 +59,26 @@
   [self.indeterminateLayer addSublayer:[CALayer layer]];
 
   // KVO the progress and colour properties
-  [self addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
-  [self addObserver:self forKeyPath:@"barColor" options:NSKeyValueObservingOptionNew context:nil];
-  [self addObserver:self forKeyPath:@"outlineColor" options:NSKeyValueObservingOptionNew context:nil];
-  [self addObserver:self forKeyPath:@"indeterminate" options:NSKeyValueObservingOptionNew context:nil];
+  [self addObserver:self forKeyPath:SDProgressBarKeyProgress options:NSKeyValueObservingOptionNew context:nil];
+  [self addObserver:self forKeyPath:SDProgressBarKeyBarColor options:NSKeyValueObservingOptionNew context:nil];
+  [self addObserver:self forKeyPath:SDProgressBarKeyBarOutlineColor options:NSKeyValueObservingOptionNew context:nil];
+  [self addObserver:self forKeyPath:SDProgressBarKeyBarIndeterminate options:NSKeyValueObservingOptionNew context:nil];
 }
 
 #pragma mark Cleanup
 - (void)dealloc
 {
-  [self removeObserver:self forKeyPath:@"progress"];
-  [self removeObserver:self forKeyPath:@"barColor"];
-  [self removeObserver:self forKeyPath:@"outlineColor"];
-  [self removeObserver:self forKeyPath:@"indeterminate"];
+  [self removeObserver:self forKeyPath:SDProgressBarKeyProgress];
+  [self removeObserver:self forKeyPath:SDProgressBarKeyBarColor];
+  [self removeObserver:self forKeyPath:SDProgressBarKeyBarOutlineColor];
+  [self removeObserver:self forKeyPath:SDProgressBarKeyBarIndeterminate];
 }
 
 #pragma mark KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
                         change:(NSDictionary *)change context:(void *)context
 {
-  if ([keyPath isEqualToString:@"progress"]) {
+  if ([keyPath isEqualToString:SDProgressBarKeyProgress]) {
     CGFloat newProgress = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
     _progress = MIN(MAX(0, newProgress), 1); // Clamp 0..1
 
@@ -81,15 +86,15 @@
     CGRect maskBounds = self.barLayer.mask.bounds;
     maskBounds.size.width = (self.progress * self.barLayer.bounds.size.width);
     self.barLayer.mask.bounds = maskBounds;
-  } else if ([keyPath isEqualToString:@"barColor"]) {
+  } else if ([keyPath isEqualToString:SDProgressBarKeyBarColor]) {
     UIColor *color = [change valueForKey:NSKeyValueChangeNewKey];
     self.barLayer.backgroundColor = color.CGColor;
     CALayer *stripeLayer = [self.indeterminateLayer.sublayers lastObject];
     stripeLayer.backgroundColor = [self indeterminatePatternColor].CGColor;
-  } else if ([keyPath isEqualToString:@"outlineColor"]) {
+  } else if ([keyPath isEqualToString:SDProgressBarKeyBarOutlineColor]) {
     UIColor *color = [change valueForKey:NSKeyValueChangeNewKey];
     self.layer.borderColor = color.CGColor;
-  } else if ([keyPath isEqualToString:@"indeterminate"]) {
+  } else if ([keyPath isEqualToString:SDProgressBarKeyBarIndeterminate]) {
     BOOL isIndeterminate = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
     self.barLayer.opacity = isIndeterminate ? 0 : 1;
     self.indeterminateLayer.opacity = isIndeterminate ? 1 : 0;

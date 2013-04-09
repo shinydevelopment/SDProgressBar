@@ -4,10 +4,6 @@
 @property (strong, nonatomic) CALayer *barLayer;
 @end
 
-@interface SDProgressBar (Private)
-- (void)configureView;
-@end
-
 @implementation SDProgressBar
 
 #pragma mark Initialisation

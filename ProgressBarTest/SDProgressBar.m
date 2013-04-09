@@ -36,14 +36,13 @@
   self.barLayer.mask = maskLayer;
 
   // Configure the outline on the main layer
-  self.layer.backgroundColor = [UIColor blackColor].CGColor;
+  self.layer.backgroundColor = [UIColor clearColor].CGColor;
   self.layer.borderColor = [UIColor whiteColor].CGColor;
 
   // KVO the progress and colour properties
   [self addObserver:self forKeyPath:@"progress" options:NSKeyValueObservingOptionNew context:nil];
   [self addObserver:self forKeyPath:@"barColor" options:NSKeyValueObservingOptionNew context:nil];
   [self addObserver:self forKeyPath:@"outlineColor" options:NSKeyValueObservingOptionNew context:nil];
-  [self addObserver:self forKeyPath:@"backgroundColor" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 #pragma mark KVO methods
@@ -54,7 +53,7 @@
 {
   if ([keyPath isEqualToString:@"progress"]) {
     CGFloat newProgress = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
-    _progress = MIN(MAX(0, newProgress), 1); // Clamp between 0..1
+    _progress = MIN(MAX(0, newProgress), 1); // Clamp 0..1
 
     // Calculate the width of the mask to reveal the bar underneath
     CGRect maskBounds = self.barLayer.mask.bounds;
@@ -66,9 +65,6 @@
   } else if ([keyPath isEqualToString:@"outlineColor"]) {
     UIColor *color = [change valueForKey:NSKeyValueChangeNewKey];
     self.layer.borderColor = color.CGColor;
-  } else if ([keyPath isEqualToString:@"backgroundColor"]) {
-    UIColor *color = [change valueForKey:NSKeyValueChangeNewKey];
-    self.layer.backgroundColor = color.CGColor;
   }
 }
 
@@ -111,7 +107,6 @@
   [self removeObserver:self forKeyPath:@"progress"];
   [self removeObserver:self forKeyPath:@"barColor"];
   [self removeObserver:self forKeyPath:@"outlineColor"];
-  [self removeObserver:self forKeyPath:@"backgroundColor"];
 }
 
 @end

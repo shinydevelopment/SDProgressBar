@@ -206,7 +206,7 @@
 
 - (CABasicAnimation *)animationForIndeterminateLayer:(CALayer *)layer
 {
-  const CGFloat animationTimeToHeightScaleFactor = 60; // Higher numbers for faster animation
+  const CGFloat animationTimeToHeightScaleFactor = 48; // Higher numbers for faster animation
   CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position.x"];
   animation.duration = layer.bounds.size.height / animationTimeToHeightScaleFactor;
   animation.byValue = @(layer.bounds.size.height);

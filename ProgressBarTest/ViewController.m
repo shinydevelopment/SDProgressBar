@@ -2,7 +2,7 @@
 
 @implementation ViewController
 
-#pragma mark - View lifecycle
+#pragma mark View lifecycle
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -10,14 +10,7 @@
   [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(fireTimer:) userInfo:nil repeats:YES];
 }
 
-- (UIColor *)randomColor
-{
-  CGFloat redValue = ((CGFloat)(arc4random() % 100)) / 100;
-  CGFloat greenValue = ((CGFloat)(arc4random() % 100)) / 100;
-  CGFloat blueValue = ((CGFloat)(arc4random() % 100)) / 100;
-  return [UIColor colorWithRed:redValue green:greenValue blue:blueValue alpha:1];
-}
-
+#pragma mark Timer
 - (void)fireTimer:(NSTimer *)timer
 {
   const NSInteger steps = 10;
@@ -29,6 +22,7 @@
   }
 }
 
+#pragma mark Actions
 - (IBAction)randomiseColoursButtonTapped:(id)sender
 {
   for (SDProgressBar *bar in self.progressBars) {
@@ -36,6 +30,22 @@
     bar.outlineColor = randomColour;
     bar.barColor = randomColour;
   }
+}
+
+- (IBAction)indeterminateSwitchValueChanged:(id)sender
+{
+  for (SDProgressBar *bar in self.progressBars) {
+    bar.indeterminate = !bar.indeterminate;
+  }
+}
+
+#pragma mark Helpers
+- (UIColor *)randomColor
+{
+  CGFloat redValue = ((CGFloat)(arc4random() % 100)) / 100;
+  CGFloat greenValue = ((CGFloat)(arc4random() % 100)) / 100;
+  CGFloat blueValue = ((CGFloat)(arc4random() % 100)) / 100;
+  return [UIColor colorWithRed:redValue green:greenValue blue:blueValue alpha:1];
 }
 
 @end

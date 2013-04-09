@@ -51,13 +51,22 @@
                                 <rect key="frame" x="0.0" y="416" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="gWU-RK-rpL"/>
                                     <barButtonItem title="Randomise Colours" id="mHM-8c-kOz">
                                         <connections>
                                             <action selector="randomiseColoursButtonTapped:" destination="2" id="TNU-gW-flc"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="jza-u8-L2Y"/>
+                                    <barButtonItem style="plain" id="9ty-Za-oxD">
+                                        <switch key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="KsV-fX-uVT">
+                                            <rect key="frame" x="229" y="9" width="79" height="27"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="onTintColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="indeterminateSwitchValueChanged:" destination="2" eventType="valueChanged" id="3i0-FZ-KB2"/>
+                                            </connections>
+                                        </switch>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -85,6 +94,7 @@
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
             <relationships>
+                <relationship kind="action" name="indeterminateSwitchValueChanged:"/>
                 <relationship kind="action" name="randomiseColoursButtonTapped:"/>
                 <relationship kind="outletCollection" name="progressBars" candidateClass="SDProgressBar"/>
             </relationships>

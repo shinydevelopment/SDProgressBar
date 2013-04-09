@@ -32,7 +32,7 @@ NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
 {
   // Defaults for colours
   self.barColor = [UIColor whiteColor];
-  self.outlineColor = [UIColor whiteColor];
+  self.outlineColor = [UIColor clearColor]; // Default no outline
   self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
 
   // Create and set the fixed properties of the bar layer used to show the progress

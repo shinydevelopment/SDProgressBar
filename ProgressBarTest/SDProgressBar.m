@@ -45,11 +45,17 @@
   [self addObserver:self forKeyPath:@"outlineColor" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-#pragma mark KVO methods
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+#pragma mark Cleanup
+- (void)dealloc
+{
+  [self removeObserver:self forKeyPath:@"progress"];
+  [self removeObserver:self forKeyPath:@"barColor"];
+  [self removeObserver:self forKeyPath:@"outlineColor"];
+}
+
+#pragma mark KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context
 {
   if ([keyPath isEqualToString:@"progress"]) {
     CGFloat newProgress = [[change valueForKey:NSKeyValueChangeNewKey] floatValue];
@@ -68,7 +74,7 @@
   }
 }
 
-#pragma mark View layout
+#pragma mark Layout
 - (void)layoutSubviews
 {
   const CGFloat outlineMinWidth = 1.8;
@@ -99,14 +105,6 @@
   // Configure the mask ready for animating the reveal of the bar layer
   self.barLayer.mask.position = CGPointMake(0, scaledHeight / 2);
   self.barLayer.mask.bounds = CGRectMake(0, 0, self.progress * scaledWidth, scaledHeight);
-}
-
-#pragma mark Dealloc
-- (void)dealloc
-{
-  [self removeObserver:self forKeyPath:@"progress"];
-  [self removeObserver:self forKeyPath:@"barColor"];
-  [self removeObserver:self forKeyPath:@"outlineColor"];
 }
 
 @end

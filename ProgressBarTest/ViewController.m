@@ -40,9 +40,9 @@
 - (IBAction)randomiseColoursButtonTapped:(id)sender
 {
   for (SDProgressBar *bar in self.progressBars) {
-    bar.backgroundColor = [self randomColor];
-    bar.outlineColor = [self randomColor];
-    bar.barColor = [self randomColor];
+    UIColor *randomColour = [self randomColor];
+    bar.outlineColor = randomColour;
+    bar.barColor = randomColour;
   }
 }
 

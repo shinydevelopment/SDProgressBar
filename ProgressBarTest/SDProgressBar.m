@@ -30,9 +30,10 @@ NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
 #pragma mark Private methods
 - (void)configureView
 {
-  // Defaults for the bar and outline colours
+  // Defaults for colours
   self.barColor = [UIColor whiteColor];
   self.outlineColor = [UIColor whiteColor];
+  self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
 
   // Create and set the fixed properties of the bar layer used to show the progress
   self.barLayer = [CALayer layer];
@@ -46,7 +47,6 @@ NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
   self.barLayer.mask = maskLayer;
 
   // Configure the outline on the main layer
-  self.layer.backgroundColor = [UIColor clearColor].CGColor;
   self.layer.borderColor = self.outlineColor.CGColor;
 
   // Create the indeterminate layer and hide it by default

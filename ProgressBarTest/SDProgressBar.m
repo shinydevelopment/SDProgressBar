@@ -186,16 +186,6 @@
   return image;
 }
 
-- (CABasicAnimation *)animationForIndeterminateLayer:(CALayer *)layer
-{
-  const CGFloat animationTimeToHeightScaleFactor = 60; // Higher numbers for faster animation
-  CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position.x"];
-  animation.duration = layer.bounds.size.height / animationTimeToHeightScaleFactor;
-  animation.byValue = @(layer.bounds.size.height);
-  animation.repeatCount = HUGE_VALF;
-  return animation;
-}
-
 - (CGFloat)colorBrightnessForColor:(UIColor *)color
 {
 	NSInteger numberOfColorComponents = CGColorGetNumberOfComponents([color CGColor]);
@@ -212,6 +202,16 @@
     NSAssert(NO, @"Unexpected number of components in colour space");
     return -1;
   }
+}
+
+- (CABasicAnimation *)animationForIndeterminateLayer:(CALayer *)layer
+{
+  const CGFloat animationTimeToHeightScaleFactor = 60; // Higher numbers for faster animation
+  CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position.x"];
+  animation.duration = layer.bounds.size.height / animationTimeToHeightScaleFactor;
+  animation.byValue = @(layer.bounds.size.height);
+  animation.repeatCount = HUGE_VALF;
+  return animation;
 }
 
 @end

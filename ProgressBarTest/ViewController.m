@@ -2,8 +2,6 @@
 
 @implementation ViewController
 
-@synthesize progressBars = _progressBars;
-
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
@@ -18,12 +16,6 @@
   CGFloat greenValue = ((CGFloat)(arc4random() % 100)) / 100;
   CGFloat blueValue = ((CGFloat)(arc4random() % 100)) / 100;
   return [UIColor colorWithRed:redValue green:greenValue blue:blueValue alpha:1];
-}
-
-- (void)viewDidUnload
-{
-  self.progressBars = nil;
-  [super viewDidUnload];
 }
 
 - (void)fireTimer:(NSTimer *)timer

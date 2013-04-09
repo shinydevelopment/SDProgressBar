@@ -10,12 +10,6 @@
 
 @implementation SDProgressBar
 
-@synthesize progress = _progress;
-@synthesize barColor = _barColor;
-@synthesize outlineColor = _outlineColor;
-@synthesize backgroundColor = _backgroundColor;
-@synthesize barLayer = _barLayer;
-
 #pragma mark Initialisation
 - (id)initWithCoder:(NSCoder *)decoder
 {

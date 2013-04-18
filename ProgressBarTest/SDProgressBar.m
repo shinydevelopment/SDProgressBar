@@ -152,6 +152,10 @@ NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
 #pragma mark Indeterminate image helpers
 - (UIColor *)indeterminatePatternColor
 {
+  // Prevent trying to create a colour before the indeterminate later has been laid out
+  if (self.indeterminateLayer.bounds.size.height <= 0) [self layoutIfNeeded];
+
+  // Create the colour from a striped pattern image
   CGFloat patternHeight = self.indeterminateLayer.bounds.size.height;
   UIImage *patternImage = [self imageForIndeterminateBarWithHeight:patternHeight tintedWithColor:self.barColor];
   return [UIColor colorWithPatternImage:patternImage];
@@ -159,6 +163,8 @@ NSString * const SDProgressBarKeyBarIndeterminate = @"indeterminate";
 
 - (UIImage *)imageForIndeterminateBarWithHeight:(CGFloat)height tintedWithColor:(UIColor *)color;
 {
+  NSAssert(height > 0, @"Height of the indeterminate image must be greater than zero");
+  
   // Make a square image the size of the height of the indeterminate bar
   CGRect imageRect = CGRectMake(0, 0, height, height);
   UIGraphicsBeginImageContextWithOptions(imageRect.size, YES, 0);
